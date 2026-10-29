@@ -1,0 +1,150 @@
+.terrain{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows:repeat(9, 1fr) ;
+    gap: 10px;
+    border-style:dashed;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 9px;
+    padding-bottom: 0px;
+    width: 100%;
+    max-width: 760px;
+    aspect-ratio: 12 / 9;
+    height: auto;
+    background-size: contain;
+    grid-template-areas: 
+      ". . . . . . . . . . . ."
+        ". . . DG DG . . MG MG . . ."
+        ". . . . . . . . . . BU1 BU1"
+        ". . DC1 DC1 . . MC1 MC1 . . . ."
+        "GB GB . . . . . . . . . ."
+        ". . DC2 DC2 . . MC2 MC2 . . . ."
+        ". . . . . . . . . . BU2 BU2"
+        ". . . DD DD . . MD MD . . ."
+        ". . . . . . . . . . . .";
+    
+}
+.joueur{
+    display:none;
+}
+
+* {
+    box-sizing: border-box;
+}
+.terrain > div{
+    height: 50px;
+    width: 50px;
+    border:none;
+    border-radius:28px ;
+}
+
+
+
+.terrain div:nth-child(16){
+    grid-area: DG;
+    background-color: rgba(49, 18, 227, 0.5);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.terrain div:nth-child(19){
+    grid-area: MG;
+    background-color: rgba(20,218, 10, 0.5);
+     display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.terrain > div:nth-child(16) {
+    grid-area: DG;
+    background-color: rgb(9, 9, 220,0.5) ;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.terrain> div:nth-child(39) {
+    grid-area: DC1;
+    background-color: rgb(12, 12, 225,0.5) ;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.terrain > div:nth-child(63) {
+    grid-area: DC2;
+    background-color: rgb(12, 12, 225,0.5) ;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+.terrain > div:nth-child(88) {
+    grid-area: DD;
+    background-color: rgb(12, 12, 225,0.5) ;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.terrain > div:nth-child(20) {
+    grid-area: MG;
+    background-color: rgb(20, 218, 10, 0.5) ;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.terrain > div:nth-child(43) {
+    grid-area: MC1;
+    background-color: rgb(20, 218, 10, 0.5) ;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+.terrain> div:nth-child(67) {
+    grid-area: MC2;
+    background-color: rgb(20, 218, 10, 0.5) ;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.terrain > div:nth-child(92) {
+    grid-area: MD;
+    background-color: rgb(20, 218, 10, 0.5) ;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.terrain> div:nth-child(35) {
+    grid-area: BU1;
+    background-color: rgb(236, 10, 10,0.5) ;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+.terrain > div:nth-child(83) {
+    grid-area: BU2;
+    background-color: rgb(236, 10, 10,0.5) ;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+.terrain > div:nth-child(37) {
+    grid-area: GB;
+    border-radius: full;
+    background-color: rgb(244, 248, 4,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}

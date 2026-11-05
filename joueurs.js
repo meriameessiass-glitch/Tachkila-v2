@@ -2,8 +2,15 @@ import { joueur } from "./donnees-initiales.js";
 const formulaire=document.querySelector('form')
 const section=document.querySelector('#section')
 const ajouter=document.querySelector('#ajouter')
-const listjouers=[]
-listjouers.push(joueur)
+const ajouter1=document.querySelector('#ajouter1')
+const nomejoueur=document.querySelector("#nom")
+const numjoueur=document.querySelector('#numero')
+const agejoueur=document.querySelector('#age')
+const listjoueurs=[]
+let indexmod
+listjoueurs.push(joueur)
+localStorage.setItem('joueurs',JSON.stringify(listjoueurs))
+let listjoueur=JSON.parse(localStorage.getItem('joueurs')) || []
 
 const POSTES = {
   GB:  { label: 'Gardien',   bordure: 'border-[#b07800]',color:'text-yellow-500' },
@@ -21,10 +28,11 @@ const REGEX = {
 
 
 function afficher(){
-    section.innerHTML=""
+    section.innerHTML= ''
     
-listjouers.forEach(joueur => {
+listjoueurs.forEach((joueur,index) => {
     const carte=document.createElement('article')
+    carte.id='carte'
     carte.className='rounded-xl border-l-8  bg-white py-5 pl-4 pr-4 shadow'
     const post=document.createElement('p')
     post.textContent=joueur.poste
@@ -59,10 +67,22 @@ listjouers.forEach(joueur => {
     capitaine.textContent='Capitaine'
     capitaine.className='h-11 rounded-lg border border-line bg-white px-3.5 text-sm hover:bg-gray-50'
     const modifier=document.createElement('button')
+    modifier.addEventListener('click',()=>{
+        nomejoueur.value=joueur.nom
+        numjoueur.value=joueur.numero
+        agejoueur.value=joueur.age
+        formulaire.hidden=false 
+        indexmod=joueur.id
+    })
     modifier.setAttribute('data-but', 'mod')
     modifier.textContent='Modifier'
     modifier.className='h-11 rounded-lg border border-line bg-white px-3.5 text-sm hover:bg-gray-50'
     const supprimer=document.createElement('button')
+    supprimer.addEventListener('click',()=>{
+        listjoueurs.splice(index,1)
+        localStorage.setItem('joueurs', JSON.stringify(listjoueurs))
+        carte.remove()
+    })
     supprimer.setAttribute('data-but', 'sup')
     supprimer.textContent='Supprimer'
     supprimer.className='h-11 rounded-lg border border-line bg-white px-3.5 text-sm hover:bg-gray-50'
@@ -71,6 +91,17 @@ listjouers.forEach(joueur => {
     section.append(carte)
 
 })};
+afficher()
+if(indexmod!==null){
+        ajouter1.textContent.toggle('Modifier')
+        const titre=document.querySelector('#titre')
+        titre.textContent.toggle("Modification d'un joueur")
+        console.log(ajouter1.textContent)
+}else{
+    
+}
+
+
 
 
 ajouter.addEventListener('click',()=>{
@@ -108,7 +139,13 @@ formulaire.addEventListener('submit',(event)=>{
             document.querySelector('#erreur-age').classList.toggle('hidden', ageV);
 
             if(!nomV || !numeroV || !ageV) return;
-            
+            if(indexmod!==null){
+                const modjoueur=listjoueurs.find(e=>e.id=indexmod)
+                modjoueur.nom=nomejoueur.value
+                modjoueur.numero=Number(numero)
+                modjoueur.poste=d.get('poste')
+                modjoueur.statut=d.get('etat')
+            }else{
             const joueur ={
                 id: String(Date.now()),
                 nom:d.get('nom'),
@@ -120,7 +157,9 @@ formulaire.addEventListener('submit',(event)=>{
                 position: null
             }
             console.log(joueur.poste)
-            listjouers.push(joueur)
+            listjoueurs.push(joueur)
+            localStorage.setItem('joueurs', JSON.stringify(listjoueurs))
+        }
             formulaire.reset()
             afficher()
         }

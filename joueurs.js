@@ -1,16 +1,20 @@
 import { joueur } from "./donnees-initiales.js";
 const formulaire=document.querySelector('form')
-const fermer=document.querySelector('#fermer')
-const annuler =document.querySelector('annuler')
 const section=document.querySelector('#section')
+const ajouter=document.querySelector('#ajouter')
 const listjouers=[]
 listjouers.push(joueur)
 
 const POSTES = {
-  GB:  { label: 'Gardien',   bordure: 'border-[#b07800]' },
-  DF:  { label: 'Défenseur', bordure: 'border-[#2f6fdc]' },
-  MIL: { label: 'Milieu',    bordure: 'border-[#1f7a4d]' },
-  ATT: { label: 'Attaquant', bordure: 'border-[#d64a3f]' },
+  GB:  { label: 'Gardien',   bordure: 'border-[#b07800]',color:'text-yellow-500' },
+  DF:  { label: 'Défenseur', bordure: 'border-[#2f6fdc]',color:'text-blue-500' },
+  MIL: { label: 'Milieu',    bordure: 'border-[#1f7a4d]',color:'text-green-500'},
+  ATT: { label: 'Attaquant', bordure: 'border-[#d64a3f]' ,color:'text-red-500'},
+}
+const REGEX = {
+  nom: /^\p{L}{2,}(?:[ '’-]\p{L}+)*$/u,
+  numero: /^(?:[1-9]|[1-9][0-9])$/,
+  age: /^(?:1[5-9]|[2-4][0-9]|50)$/,
 }
 
 
@@ -22,9 +26,15 @@ function afficher(){
 listjouers.forEach(joueur => {
     const carte=document.createElement('article')
     carte.className='rounded-xl border-l-8  bg-white py-5 pl-4 pr-4 shadow'
+    const post=document.createElement('p')
+    post.textContent=joueur.poste
+    post.className='font-bold'
     for(const[pro,val]of Object.entries(POSTES)){
         if(joueur.poste==pro){
             carte.classList.add(val.bordure)
+            post.textContent=val.label
+            post.classList.add(val.color)
+
         }
     }
     const num=document.createElement('div')
@@ -57,21 +67,61 @@ listjouers.forEach(joueur => {
     supprimer.textContent='Supprimer'
     supprimer.className='h-11 rounded-lg border border-line bg-white px-3.5 text-sm hover:bg-gray-50'
     div.append(capitaine,modifier,supprimer)
-    carte.append(num,nomjoueur,age,div,etat)
+    carte.append(num,nomjoueur,age,post,div,etat)
     section.append(carte)
 
 })};
 
+
+ajouter.addEventListener('click',()=>{
+    formulaire.hidden=false
+})
+
 formulaire.onclick=function(event){
-    if(event.target.closest('button') && formulaire.contains){
-        if(event.target.id=='fermer'){
-            formulaire.classList.add('hidden')
+    const bouton=event.target.closest('button')
+    if(bouton){
+
+         if(bouton.id=='fermer'){
+            formulaire.hidden=true
         }
-        else if(event.target.id=='annuler'){
-            formulaire.classList.add('hidden')
+        else if(bouton.id=='annuler'){
+            formulaire.hidden=true
+            console.log(formulaire.classList)
             formulaire.reset()
         }
-
     }
 }
+formulaire.addEventListener('submit',(event)=>{
+    event.preventDefault()
+    const d = new FormData(formulaire);
 
+            const nom = d.get('nom').trim().replace(/\s+/g, ' ');   
+            const numero = String(d.get('numero'));
+            const age = String(d.get('age'));
+
+            const nomV = REGEX.nom.test(nom);
+            const numeroV = REGEX.numero.test(numero);
+            const ageV = REGEX.age.test(age);
+
+            document.querySelector('#erreur-nom').classList.toggle('hidden', nomV);
+            document.querySelector('#erreur-numero').classList.toggle('hidden', numeroV);
+            document.querySelector('#erreur-age').classList.toggle('hidden', ageV);
+
+            if(!nomV || !numeroV || !ageV) return;
+            
+            const joueur ={
+                id: String(Date.now()),
+                nom:d.get('nom'),
+                numero: Number(numero),
+                poste: d.get('poste'),
+                age: Number(age),
+                statut: d.get('etat'),
+                capitaine: false,
+                position: null
+            }
+            console.log(joueur.poste)
+            listjouers.push(joueur)
+            formulaire.reset()
+            afficher()
+        }
+)

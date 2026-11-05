@@ -6,9 +6,8 @@
         <title>Tachkila</title>
         <link rel="stylesheet" href="style.css">
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-        <script src="ui.js" type="module" defer></script>
-        <script src="state.js" type="module" defer></script>
-        <script src="script.js" type="module" defer></script>
+        <script src="joueurs.js" type="module" defer></script>
+        <script src="donnees-initiales.js" type="module" defer></script>
 
     </head>
     <body class="">
@@ -49,20 +48,97 @@
                 </select>
                 <button type="button" class="h-11 rounded-lg bg-yellow-700 px-[18px] text-[15px] font-bold text-white hover:bg-[#186540]">Ajouter un joueur</button>
             </div>
+            <section id="section" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"></section>
             <section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-               <article class="rounded-xl border-l-8 border-[#2f6fdc] bg-white py-5 pl-4 pr-4 shadow">
-                <div class="flex min-h-9 items-center justify-between">
-                    <span class="font-display text-4xl font-bold leading-none">4</span>
+                
+               <form id="form" 
+                          class="[&:not([hidden])]:flex fixed left-1/2 top-1/2 z-50 max-h-[90vh] w-[90%] max-w-[420px] -translate-x-1/2 -translate-y-1/2 flex-col gap-5 overflow-y-auto rounded-xl bg-white p-6 font-sans text-[#0f2419] shadow-[0_0_0_100vmax_rgba(15,36,25,0.55)]">
+
+ 
+                <div class="flex items-center justify-between border-b border-[#9aa89f]/40 pb-3">
+                <h2 class="font-['Barlow_Condensed'] text-2xl font-bold uppercase tracking-wide">Ajouter un joueur</h2>
+                 <button type="button" id="fermer" aria-label="Fermer"
+                      class="flex h-11 w-11 items-center justify-center rounded-lg text-xl text-[#4a5d52] hover:bg-[#f3f6f1] hover:text-[#0f2419] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1f7a4d]">✕</button>
                 </div>
-                <h2 class="mb-1.5 mt-2 text-lg font-bold">Amine Berrada</h2>
-                <p class="mb-2 text-sm text-muted">Défenseur · 24 ans</p>
-                <span class="inline-block rounded-full bg-[#fde0dc] px-2.5 py-[3px] text-[12.5px] font-semibold text-[#9b1c14]">Blessé</span>
-                <div class="mt-3 flex flex-wrap gap-2">
-                        <button type="button" class="h-11 rounded-lg border border-line bg-white px-3.5 text-sm hover:bg-gray-50">Capitaine</button>
-                        <button type="button" class="h-11 rounded-lg border border-line bg-white px-3.5 text-sm hover:bg-gray-50">Modifier</button>
-                        <button type="button" class="h-11 rounded-lg border border-line bg-white px-3.5 text-sm text-[#9b1c14] hover:bg-red-50">Supprimer</button>
+
+  
+               <div class="flex flex-col gap-1.5">
+                  <label for="nom" class="text-sm font-semibold">Nom complet</label>
+                    <input type="text" id="nom" name="nom" placeholder="Ex. Youssef El Idrissi" required
+                         class="h-11 w-full rounded-lg border border-[#9aa89f] bg-white px-3 text-[15px] placeholder:text-[#4a5d52]/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1f7a4d]">
+                    <p id="erreur-nom" class="hidden text-xs font-medium text-[#9b1c14]">Entrez un nom valide.</p>
                 </div>
-               </article> 
+
+  
+              <fieldset class="flex flex-col gap-1.5">
+              <legend class="mb-1.5 text-sm font-semibold">Poste</legend>
+              <div class="grid grid-cols-2 gap-2">
+              <label class="cursor-pointer">
+              <input type="radio" name="poste" value="Gardien" class="peer sr-only" required>
+              <span class="flex h-11 items-center justify-between rounded-lg border border-[#9aa89f] bg-white px-3 text-sm hover:bg-[#f3f6f1] peer-checked:border-[#1f7a4d] peer-checked:bg-[#dcf2e3] peer-checked:font-semibold peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-[#1f7a4d]">
+              Gardien <span class="h-2.5 w-2.5 rounded-full bg-[#b07800]"></span>
+              </span>
+              </label>
+              <label class="cursor-pointer">
+               <input type="radio" name="poste" value="Défenseur" class="peer sr-only">
+              <span class="flex h-11 items-center justify-between rounded-lg border border-[#9aa89f] bg-white px-3 text-sm hover:bg-[#f3f6f1] peer-checked:border-[#1f7a4d] peer-checked:bg-[#dcf2e3] peer-checked:font-semibold peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-[#1f7a4d]">
+              Défenseur <span class="h-2.5 w-2.5 rounded-full bg-[#2f6fdc]"></span>
+              </span>
+             </label>
+             <label class="cursor-pointer">
+                     <input type="radio" name="poste" value="Milieu" class="peer sr-only">
+                     <span class="flex h-11 items-center justify-between rounded-lg border border-[#9aa89f] bg-white px-3 text-sm hover:bg-[#f3f6f1] peer-checked:border-[#1f7a4d] peer-checked:bg-[#dcf2e3] peer-checked:font-semibold peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-[#1f7a4d]">
+                       Milieu <span class="h-2.5 w-2.5 rounded-full bg-[#1f7a4d]"></span>
+                     </span>
+             </label>
+             <label class="cursor-pointer">
+                  <input type="radio" name="poste" value="Attaquant" class="peer sr-only">
+             <span class="flex h-11 items-center justify-between rounded-lg border border-[#9aa89f] bg-white px-3 text-sm hover:bg-[#f3f6f1] peer-checked:border-[#1f7a4d] peer-checked:bg-[#dcf2e3] peer-checked:font-semibold peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-[#1f7a4d]">
+                 Attaquant <span class="h-2.5 w-2.5 rounded-full bg-[#d64a3f]"></span>
+             </span>
+             </label>
+             </div>
+             </fieldset>
+
+
+             <div class="grid grid-cols-2 gap-3">
+             <div class="flex flex-col gap-1.5">
+             <label for="numero" class="text-sm font-semibold">Numéro (1 à 99)</label>
+             <input type="number" id="numero" name="numero" min="1" max="99" required
+             class="h-11 w-full rounded-lg border border-[#9aa89f] bg-white px-3 text-[15px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1f7a4d]">
+             <p id="erreur-numero" class="hidden text-xs font-medium text-[#9b1c14]">Entre 1 et 99.</p>
+             </div>
+             <div class="flex flex-col gap-1.5">
+             <label for="age" class="text-sm font-semibold">Âge</label>
+             <input type="number" id="age" name="age" min="15" max="50" required
+             class="h-11 w-full rounded-lg border border-[#9aa89f] bg-white px-3 text-[15px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1f7a4d]">
+             <p id="erreur-age" class="hidden text-xs font-medium text-[#9b1c14]">Entre 15 et 50.</p>
+             </div>
+             </div>
+
+  
+            <fieldset class="flex flex-col gap-1.5">
+            <legend class="mb-1.5 text-sm font-semibold">État</legend>
+            <div class="flex gap-2">
+            <label class="flex-1 cursor-pointer">
+            <input type="radio" name="etat" value="En forme" class="peer sr-only" checked>
+            <span class="flex h-11 items-center justify-center rounded-lg border border-[#9aa89f] bg-white text-sm hover:bg-[#f3f6f1] peer-checked:border-[#14633a] peer-checked:bg-[#dcf2e3] peer-checked:font-semibold peer-checked:text-[#14633a] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-[#1f7a4d]">En forme</span>
+            </label>
+           <label class="flex-1 cursor-pointer">
+           <input type="radio" name="etat" value="Blessé" class="peer sr-only">
+           <span class="flex h-11 items-center justify-center rounded-lg border border-[#9aa89f] bg-white text-sm hover:bg-[#f3f6f1] peer-checked:border-[#9b1c14] peer-checked:bg-[#fde0dc] peer-checked:font-semibold peer-checked:text-[#9b1c14] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-[#9b1c14]">Blessé</span>
+           </label>
+           </div>
+           </fieldset>
+
+
+           <div class="flex gap-3 pt-1">
+           <button type="button" id="annuler"
+            class="h-11 flex-1 rounded-lg border border-[#9aa89f] bg-white font-medium hover:bg-[#f3f6f1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1f7a4d]">Annuler</button>
+           <button type="submit"
+            class="h-11 flex-1 rounded-lg bg-[#1f7a4d] font-bold text-white transition-colors hover:bg-[#186540] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1f7a4d]">Ajouter</button>
+             </div>
+            </form>
             </section>
               <nav class="mt-7 flex items-center justify-center gap-3 text-sm text-muted" aria-label="Pagination">
                     <button type="button" class="h-11 rounded-lg border border-line bg-white px-3.5 text-ink hover:bg-gray-50">Précédent</button>

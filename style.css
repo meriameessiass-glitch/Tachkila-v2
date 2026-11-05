@@ -35,14 +35,16 @@
 .terrain > div{
     height: 50px;
     width: 50px;
-    border:none;
-    border-radius:28px ;
+    ;
 }
 
 
 
 .terrain div:nth-child(16){
     grid-area: DG;
+    border-radius:28px ;
+    border: solid;
+    border-color: rgb(3, 8, 8);
     background-color: rgba(49, 18, 227, 0.5);
     display:flex;
     align-items: center;
@@ -51,6 +53,7 @@
 }
 .terrain div:nth-child(19){
     grid-area: MG;
+    border-color: azure;
     background-color: rgba(20,218, 10, 0.5);
      display: flex;
     align-items: center;
@@ -59,6 +62,7 @@
 }
 .terrain > div:nth-child(16) {
     grid-area: DG;
+    border-color: azure;
     background-color: rgb(9, 9, 220,0.5) ;
      display: flex;
     align-items: center;
@@ -67,6 +71,7 @@
 
 .terrain> div:nth-child(39) {
     grid-area: DC1;
+    border-color: azure;
     background-color: rgb(12, 12, 225,0.5) ;
      display: flex;
     align-items: center;
@@ -75,6 +80,7 @@
 }
 .terrain > div:nth-child(63) {
     grid-area: DC2;
+    border-color: azure;
     background-color: rgb(12, 12, 225,0.5) ;
      display: flex;
     align-items: center;
@@ -83,6 +89,7 @@
 }
 .terrain > div:nth-child(88) {
     grid-area: DD;
+    border-color: azure;
     background-color: rgb(12, 12, 225,0.5) ;
      display: flex;
     align-items: center;
@@ -91,6 +98,7 @@
 }
 .terrain > div:nth-child(20) {
     grid-area: MG;
+    border-color: azure;
     background-color: rgb(20, 218, 10, 0.5) ;
      display: flex;
     align-items: center;
@@ -98,6 +106,7 @@
 }
 .terrain > div:nth-child(43) {
     grid-area: MC1;
+    border-color: azure;
     background-color: rgb(20, 218, 10, 0.5) ;
      display: flex;
     align-items: center;
@@ -107,6 +116,7 @@
 
 .terrain> div:nth-child(67) {
     grid-area: MC2;
+    border-color: azure;
     background-color: rgb(20, 218, 10, 0.5) ;
      display: flex;
     align-items: center;
@@ -115,6 +125,7 @@
 }
 .terrain > div:nth-child(92) {
     grid-area: MD;
+    border-color: azure;
     background-color: rgb(20, 218, 10, 0.5) ;
      display: flex;
     align-items: center;
@@ -124,6 +135,7 @@
 
 .terrain> div:nth-child(35) {
     grid-area: BU1;
+    border-color: azure;
     background-color: rgb(236, 10, 10,0.5) ;
      display: flex;
     align-items: center;
@@ -132,6 +144,7 @@
 }
 .terrain > div:nth-child(83) {
     grid-area: BU2;
+    border-color: azure;
     background-color: rgb(236, 10, 10,0.5) ;
      display: flex;
     align-items: center;
@@ -141,6 +154,7 @@
 
 .terrain > div:nth-child(37) {
     grid-area: GB;
+    border-color: azure;
     border-radius: full;
     background-color: rgb(244, 248, 4,0.5);
     display: flex;

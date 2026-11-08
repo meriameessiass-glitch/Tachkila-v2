@@ -38,8 +38,8 @@
             <h1 class="font-display text-[40px] font-bold uppercase leading-none tracking-wide">Effectif</h1>
             <p class="mb-5 mt-1 text-sm text-muted">Atlas FC · 4 joueurs affichés sur 22</p>
             <div class="mb-6 flex flex-wrap gap-3">
-                <input type="search" placeholder="Rechercher un joueur" class="h-11 min-w-full flex-1 rounded-lg border  bg-white px-3 text-[15px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand sm:min-w-0">
-                <select aria-label="filtrer par poste" class="h-11 flex-1 rounded-lg border border-line bg-white px-3 text-[15px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand sm:min-w-0 " id="">
+                <input type="search" placeholder="Rechercher un joueur" class="h-11 min-w-full flex-1 rounded-lg border  bg-white px-3 text-[15px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand sm:min-w-0" id="Rechercher" value="">
+                <select aria-label="filtrer par poste" class="h-11 flex-1 rounded-lg border border-line bg-white px-3 text-[15px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand sm:min-w-0 " id="filtrer">
                     <option value="">Toute les postes</option>
                     <option value="GB">Gardien</option>
                     <option value="DF">Défenseur</option>
@@ -56,7 +56,7 @@
 
  
                 <div class="flex items-center justify-between border-b border-[#9aa89f]/40 pb-3">
-                <h2 class="font-['Barlow_Condensed'] text-2xl font-bold uppercase tracking-wide">Ajouter un joueur</h2>
+                <h2 class="font-['Barlow_Condensed'] text-2xl font-bold uppercase tracking-wide" id="titre">Ajouter un joueur</h2>
                  <button type="button" id="fermer" aria-label="Fermer"
                       class="flex h-11 w-11 items-center justify-center rounded-lg text-xl text-[#4a5d52] hover:bg-[#f3f6f1] hover:text-[#0f2419] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1f7a4d]">✕</button>
                 </div>
@@ -135,7 +135,7 @@
            <div class="flex gap-3 pt-1">
            <button type="button" id="annuler"
             class="h-11 flex-1 rounded-lg border border-[#9aa89f] bg-white font-medium hover:bg-[#f3f6f1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1f7a4d]">Annuler</button>
-           <button type="submit"
+           <button type="submit" id="ajouter1"
             class="h-11 flex-1 rounded-lg bg-[#1f7a4d] font-bold text-white transition-colors hover:bg-[#186540] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1f7a4d]">Ajouter</button>
              </div>
             </form>

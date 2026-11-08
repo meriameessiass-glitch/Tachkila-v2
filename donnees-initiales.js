@@ -5,7 +5,7 @@ export const joueur = {
   poste: "MIL",          
   age: 25,               
   statut: "En forme",    
-  capitaine: true,       
+  capitaine: false,       
   position: null        
 };
 

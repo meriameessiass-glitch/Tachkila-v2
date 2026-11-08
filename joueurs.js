@@ -6,11 +6,17 @@ const ajouter1=document.querySelector('#ajouter1')
 const nomejoueur=document.querySelector("#nom")
 const numjoueur=document.querySelector('#numero')
 const agejoueur=document.querySelector('#age')
-const listjoueurs=[]
-let indexmod
-listjoueurs.push(joueur)
-localStorage.setItem('joueurs',JSON.stringify(listjoueurs))
-let listjoueur=JSON.parse(localStorage.getItem('joueurs')) || []
+const titre=document.querySelector('#titre')
+const filtrer=document.querySelector('#filtrer')
+const recherche=document.querySelector('#Rechercher')
+
+const listjoueurs=JSON.parse(localStorage.getItem('joueurs')) 
+if (listjoueurs === null) {
+    listjoueurs = [joueur]
+    localStorage.setItem('joueurs', JSON.stringify(listjoueurs))
+}
+let indexmod=null
+let indexcap=null
 
 const POSTES = {
   GB:  { label: 'Gardien',   bordure: 'border-[#b07800]',color:'text-yellow-500' },
@@ -27,13 +33,13 @@ const REGEX = {
 
 
 
-function afficher(){
+function afficher(B=listjoueurs){
     section.innerHTML= ''
     
-listjoueurs.forEach((joueur,index) => {
+B.forEach((joueur,index) => {
     const carte=document.createElement('article')
     carte.id='carte'
-    carte.className='rounded-xl border-l-8  bg-white py-5 pl-4 pr-4 shadow'
+    carte.className='relative rounded-xl border-l-8  bg-white py-5 pl-4 pr-4 shadow'
     const post=document.createElement('p')
     post.textContent=joueur.poste
     post.className='font-bold'
@@ -63,6 +69,22 @@ listjoueurs.forEach((joueur,index) => {
     const div=document.createElement('div')
     div.className='mt-3 flex flex-wrap gap-2'
     const capitaine=document.createElement('button')
+    capitaine.addEventListener('click', ()=>{
+        listjoueurs.forEach(j => {
+        j.capitaine = false
+        })
+        joueur.capitaine=true
+        indexcap=true
+         document.querySelectorAll('.badge-capitaine').forEach(badge => {
+        badge.remove()
+        })
+        const badge = document.createElement("span");
+        badge.textContent = "C"
+        badge.className ="badge-capitaine absolute -top-2 -right-2 w-8 h-8 rounded-full bg-yellow-400 text-black text-sm font-bold flex items-center justify-center shadow-md ring-2 ring-white";
+        carte.appendChild(badge)
+        localStorage.setItem('joueurs', JSON.stringify(listjoueurs))
+
+    })
     capitaine.setAttribute('data-but', 'cap')
     capitaine.textContent='Capitaine'
     capitaine.className='h-11 rounded-lg border border-line bg-white px-3.5 text-sm hover:bg-gray-50'
@@ -72,7 +94,11 @@ listjoueurs.forEach((joueur,index) => {
         numjoueur.value=joueur.numero
         agejoueur.value=joueur.age
         formulaire.hidden=false 
+        ajouter1.textContent='Modifier'
+        titre.textContent="Modification d'un joueur"
+        console.log(ajouter1.textContent)
         indexmod=joueur.id
+        console.log(indexmod)
     })
     modifier.setAttribute('data-but', 'mod')
     modifier.textContent='Modifier'
@@ -88,19 +114,21 @@ listjoueurs.forEach((joueur,index) => {
     supprimer.className='h-11 rounded-lg border border-line bg-white px-3.5 text-sm hover:bg-gray-50'
     div.append(capitaine,modifier,supprimer)
     carte.append(num,nomjoueur,age,post,div,etat)
+    if (joueur.capitaine) {
+    const badge = document.createElement("span")
+    badge.textContent = "C"
+    badge.className = "badge-capitaine absolute -top-2 -right-2 w-8 h-8 rounded-full bg-yellow-400 text-black text-sm font-bold flex items-center justify-center shadow-md ring-2 ring-white"
+
+    carte.appendChild(badge)
+    }
     section.append(carte)
 
 })};
 afficher()
-if(indexmod!==null){
-        ajouter1.textContent.toggle('Modifier')
-        const titre=document.querySelector('#titre')
-        titre.textContent.toggle("Modification d'un joueur")
-        console.log(ajouter1.textContent)
-}else{
-    
+if(indexmod===null){
+        ajouter1.textContent='Ajouter '
+        titre.textContent="Ajouter un joueur"
 }
-
 
 
 
@@ -140,11 +168,14 @@ formulaire.addEventListener('submit',(event)=>{
 
             if(!nomV || !numeroV || !ageV) return;
             if(indexmod!==null){
-                const modjoueur=listjoueurs.find(e=>e.id=indexmod)
+                const modjoueur=listjoueurs.find(e=>e.id===indexmod)
                 modjoueur.nom=nomejoueur.value
                 modjoueur.numero=Number(numero)
                 modjoueur.poste=d.get('poste')
                 modjoueur.statut=d.get('etat')
+                modjoueur.age=d.get(age)
+                localStorage.setItem('joueurs', JSON.stringify(listjoueurs))
+                indexmod=null
             }else{
             const joueur ={
                 id: String(Date.now()),
@@ -156,11 +187,22 @@ formulaire.addEventListener('submit',(event)=>{
                 capitaine: false,
                 position: null
             }
+            console.log(listjoueurs)
             console.log(joueur.poste)
             listjoueurs.push(joueur)
             localStorage.setItem('joueurs', JSON.stringify(listjoueurs))
         }
             formulaire.reset()
             afficher()
-        }
+    }
 )
+
+function recherchejoueur(n){
+        const joueursFiltres = listjoueurs.filter(element =>
+        element.nom.toLowerCase().includes(n.toLowerCase().trim())
+    )
+    afficher(joueursFiltres)
+}
+recherche.addEventListener('input',()=>{
+    recherchejoueur(recherche.value)
+})

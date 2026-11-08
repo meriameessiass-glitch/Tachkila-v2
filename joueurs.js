@@ -196,13 +196,23 @@ formulaire.addEventListener('submit',(event)=>{
             afficher()
     }
 )
-
-function recherchejoueur(n){
-        const joueursFiltres = listjoueurs.filter(element =>
+let filtreposte=listjoueurs
+function recherchejoueur(n,m){
+        const joueursFiltres = m.filter(element =>
         element.nom.toLowerCase().includes(n.toLowerCase().trim())
     )
     afficher(joueursFiltres)
 }
 recherche.addEventListener('input',()=>{
-    recherchejoueur(recherche.value)
+    recherchejoueur(recherche.value,filtreposte)
+})
+filtrer.addEventListener('change',(event)=>{
+    if(event.target.value===''){
+        afficher(listjoueurs)
+    }else{
+    filtreposte=listjoueurs.filter(e=>e.poste.includes(event.target.value))
+    afficher(filtreposte)
+    }
+    recherchejoueur(recherche.value,filtreposte)
+    
 })

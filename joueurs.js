@@ -1,11 +1,17 @@
 import { joueur } from "./donnees-initiales.js";
+let pageActuelle = 1
+const joueursParPage = 8
 const formulaire=document.querySelector('form')
-const section=document.querySelector('#section')
+const section=document.querySelector('section')
 const ajouter=document.querySelector('#ajouter')
 const ajouter1=document.querySelector('#ajouter1')
 const nomejoueur=document.querySelector("#nom")
 const numjoueur=document.querySelector('#numero')
 const agejoueur=document.querySelector('#age')
+const pagination = document.querySelector('#pagination')
+const precedent = document.querySelector('#precedent')
+const suivant = document.querySelector('#suivant')
+const numeroPage = document.querySelector('#numpage')
 const titre=document.querySelector('#titre')
 const filtrer=document.querySelector('#filtrer')
 const recherche=document.querySelector('#Rechercher')
@@ -33,10 +39,19 @@ const REGEX = {
 
 
 
-function afficher(B=listjoueurs){
-    section.innerHTML= ''
+function afficher(B = listjoueurs) {
+    section.innerHTML = ''
+
     
-B.forEach((joueur,index) => {
+    const totalPages = Math.max(1, Math.ceil(B.length / joueursParPage))
+    pageActuelle = Math.min(pageActuelle, totalPages)
+    const debut = (pageActuelle - 1) * joueursParPage
+    const fin = debut + joueursParPage
+
+
+    const joueursPage = B.slice(debut, fin)
+
+    joueursPage.forEach((joueur, index) => {
     const carte=document.createElement('article')
     carte.id='carte'
     carte.className='relative rounded-xl border-l-8  bg-white py-5 pl-4 pr-4 shadow'
@@ -121,9 +136,33 @@ B.forEach((joueur,index) => {
 
     carte.appendChild(badge)
     }
+    const cartess=document.querySelectorAll('article')
+    if(cartess.length==8){
+        const section2=document.createElement('section')
+    }
     section.append(carte)
+        numeroPage.textContent = `Page ${pageActuelle} / ${totalPages}`
 
+    precedent.disabled = pageActuelle === 1
+
+    suivant.disabled = pageActuelle === totalPages
+    
 })};
+ precedent.addEventListener('click', () => {
+    if (pageActuelle > 1) {
+        pageActuelle--
+        afficher()
+    }
+})
+
+suivant.addEventListener('click', () => {
+    const totalPages = Math.max(1, Math.ceil(listjoueurs.length / joueursParPage))
+
+    if (pageActuelle < totalPages) {
+        pageActuelle++
+        afficher()
+    }
+})
 afficher()
 if(indexmod===null){
         ajouter1.textContent='Ajouter '
@@ -214,5 +253,4 @@ filtrer.addEventListener('change',(event)=>{
     afficher(filtreposte)
     }
     recherchejoueur(recherche.value,filtreposte)
-    
 })

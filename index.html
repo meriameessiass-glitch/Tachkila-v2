@@ -48,7 +48,7 @@
                 </select>
                 <button type="button" class="h-11 rounded-lg bg-yellow-700 px-[18px] text-[15px] font-bold text-white hover:bg-[#186540]" id="ajouter">Ajouter un joueur</button>
             </div>
-            <section id="section" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"></section>
+            <section id="section" class="section1 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"></section>
             <section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 
                <form id="form" hidden
@@ -140,10 +140,10 @@
              </div>
             </form>
             </section>
-              <nav class="mt-7 flex items-center justify-center gap-3 text-sm text-muted" aria-label="Pagination">
-                    <button type="button" class="h-11 rounded-lg border border-line bg-white px-3.5 text-ink hover:bg-gray-50">Précédent</button>
-                    <span>Page 1 / 3</span>
-                    <button type="button" class="h-11 rounded-lg bg-brand px-[18px] font-bold text-white hover:bg-[#186540]">Suivant</button>
+              <nav id="pagination" class="mt-7 flex items-center justify-center gap-3 text-sm text-muted" aria-label="Pagination">
+                    <button id="precedent" type="button" class="h-11 rounded-lg border border-line bg-white px-3.5 text-ink hover:bg-gray-50">Précédent</button>
+                    <span id="numpage">Page 1 / 3</span>
+                    <button id="suivant" type="button" class="h-11 rounded-lg bg-brand px-[18px] font-bold text-white hover:bg-[#186540]">Suivant</button>
                </nav>
 
         </main>

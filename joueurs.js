@@ -38,7 +38,6 @@ const REGEX = {
 
 
 
-
 function afficher(B = listjoueurs) {
     section.innerHTML = ''
 

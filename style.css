@@ -4,7 +4,7 @@
     grid-template-rows:repeat(9, 1fr) ;
     gap: 10px;
     border-style:dashed;
-    background-color: rgb(7, 221, 28);
+    background-color: rgb(24, 93, 31);
     padding: 9px;
     padding-bottom: 0px;
     width: 100%;
